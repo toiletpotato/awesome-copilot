@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-18
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -456,6 +456,8 @@ The model picker opens in a **full-screen view** with inline reasoning effort ad
 **Session-scoped model selection** *(v1.0.79+)*: `/model` now changes the model for the **current session only** by default. Use `/config model` to set the default model for future sessions — previously `/model` changed both at once, which made it easy to accidentally change your global default while just trying something out in one session.
 
 **Auto mode and server-side model routing** (v1.0.43+): When you select **Auto** as your model, the CLI uses server-side model routing for real-time model selection. Instead of locking in a single model at session start, Auto mode evaluates each request and routes it to the most appropriate model dynamically. This means straightforward questions can be handled by a faster model while complex reasoning tasks are automatically escalated — without you needing to switch models manually.
+
+**Auto Tiers in VS Code** *(VS Code 1.139+)*: In VS Code's Copilot Chat and Copilot SDK agent sessions, the Auto model gains an **Optimize for** control with **Efficiency**, **Balance**, and **Intelligence** options, letting you bias Auto's routing decisions toward speed/cost or toward capability instead of relying on a single default trade-off. VS Code's model picker also adds separate controls for a model's **Thinking Effort** and, for models that support it, a longer **Context Size**.
 
 **Model family aliases** (v1.0.64+): Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Recent models available include **Claude Opus 5** (v1.0.75+), the latest in Anthropic's Opus family for the most demanding tasks, **Grok 4.5** (v1.0.76+) from xAI, **Gemini 3.7 Flash** (v1.0.81+), **Claude Fable 5.1** (v1.0.83+), and **GPT-6 Astra** (v1.0.84+). **Grok 4.6** (v1.0.81+) also gains support for the `xhigh` reasoning effort level, one step above `high`, for the most demanding reasoning tasks. The `/model picker` also periodically retires older models no longer worth recommending — a recent cleanup removed several deprecated Claude and Gemini entries (v1.0.83+), so don't be surprised if a model you previously pinned disappears from the list.
 
@@ -945,6 +947,18 @@ copilot skill enable my-skill    # enable a specific skill
 ### Command-Line Parsing Rewrite
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
+
+### Context Management Tools for Subagents
+
+*(v1.0.85+)* Run `/settings` and opt in to context management tools for agents and subagents. Once enabled, the main agent and any subagents it launches gain tools for actively managing their own context window — useful for long-running or multi-phase tasks that would otherwise risk losing earlier context to compaction. See [Agents and Subagents](../agents-and-subagents/) for how subagents use context differently from the primary session.
+
+### Grouped Transcript View
+
+*(v1.0.85+)* Set `transcriptView` to `"concise"` to group tool activity into expandable work summaries instead of showing every individual tool call inline. This keeps the timeline readable during tool-heavy turns — expand a summary only when you need to inspect the underlying calls.
+
+### Autopilot Stop Behavior Fix
+
+*(v1.0.86+)* Autopilot now reliably stops once it reports a task as complete, instead of sometimes continuing to run additional turns unexpectedly. If you want autopilot to keep going after a task completes, use the `stayInAutopilot` setting described above.
 
 ## Common Questions
 
