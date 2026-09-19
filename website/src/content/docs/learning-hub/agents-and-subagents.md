@@ -3,7 +3,7 @@ title: 'Agents and Subagents'
 description: 'Learn how delegated subagents differ from primary agents, when to use them, and how to launch them in VS Code and Copilot CLI.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-19
 estimatedReadingTime: '9 minutes'
 tags:
   - agents
@@ -201,6 +201,12 @@ When an agent delegates work to multiple chats, VS Code's **Agents window** now 
 This pairs with **improved workspace resolution**: agents can resolve a workspace by project name (for example, "run this in the vscode workspace") in addition to absolute paths, which simplifies prompts that hand off work across multiple repositories.
 
 **Shareable session links** *(VS Code 1.138+)*: Agent Host sessions and chats now provide browser-addressable links, so you can reopen or share a specific Agents window session directly from another app, a GitHub issue, or terminal output — useful when handing off a delegated subagent's work to a teammate for review. You can also start a new session beside the current one in one step, keeping the current work visible while a second session starts.
+
+**Run agent sessions in local Dev Containers** *(VS Code 1.138+)*: Enable `chat.agentHost.devContainer.enabled` to run an Agents window session inside a local folder's Dev Container instead of on your host machine. This keeps a delegated agent's toolchain and dependencies aligned with the project's configured environment rather than whatever happens to be installed locally. Folders with a supported Dev Container configuration show a **Use Dev Container** action in the workspace picker; Docker must be installed. This feature is rolling out gradually, so you may need to enable the setting manually to try it now.
+
+**Create pull requests from agent sessions** *(VS Code 1.138+)*: Enable `chat.agentMerge.enabled` for the experimental **Agent Merge** option, which lets you open a pull request directly from an Agent Host session — review and edit the generated title and description, choose draft status, and configure merge options in one form, with your preferences remembered for next time.
+
+**Expanded Codex support in the agent host** *(VS Code 1.138+)*: The agent host now supports using Codex with either a GitHub Copilot subscription or a ChatGPT subscription, switching between Copilot-backed and ChatGPT-backed models from the model picker without losing the current conversation. Codex sessions can also move between the ChatGPT app and VS Code, and — when a ChatGPT subscription is used — reuse ChatGPT's computer-use setup to interact with desktop apps, and use its image-generation tool directly. Codex in the agent host also gains access to the full set of VS Code tools, including built-in, extension, and MCP tools.
 
 ## Common questions
 

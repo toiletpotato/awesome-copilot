@@ -3,7 +3,7 @@ title: 'Building Custom Agents'
 description: 'Learn how to create specialized GitHub Copilot agents with custom personas, tool integrations, and domain expertise.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-05
+lastUpdated: 2026-09-19
 estimatedReadingTime: '10 minutes'
 tags:
   - agents
@@ -107,6 +107,18 @@ tools: ['codebase', 'terminal', 'github']
 | `edit` | Modify files in the workspace |
 
 For MCP server tools, reference them by server name (e.g., `postgres`, `docker`). See [Understanding MCP Servers](../understanding-mcp-servers/) for details.
+
+> **Opting in to repository instructions (Copilot CLI v1.0.86+)**: By default, a custom agent's own frontmatter and body are its only source of instructions. Set `include-custom-instructions: true` to have the agent also load repository instruction files — `AGENTS.md`, `copilot-instructions.md`, and `CLAUDE.md` — the same way a default session would. This is useful when a custom agent should still respect team-wide coding standards rather than being fully isolated from them:
+>
+> ```yaml
+> ---
+> name: 'Security Reviewer'
+> description: 'Expert security auditor that also follows repo-wide conventions'
+> model: Claude Sonnet 4
+> include-custom-instructions: true
+> tools: ['codebase', 'terminal', 'github']
+> ---
+> ```
 
 ### Agent Instructions
 

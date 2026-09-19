@@ -3,7 +3,7 @@ title: 'GitHub Copilot Terminology Glossary'
 description: 'A quick reference guide defining common GitHub Copilot and platform-specific terms.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-07
+lastUpdated: 2026-09-19
 estimatedReadingTime: '8 minutes'
 tags:
   - glossary
@@ -281,7 +281,7 @@ tools: ['codebase', 'terminalCommand', 'github']
 
 ### Agent Host
 
-A VS Code component (v1.136+) that lets multiple VS Code windows connect to the same agent session. It runs agent harnesses (such as Copilot or Claude) in a dedicated process built on the open **Agent Host Protocol (AHP)**. The agent host's Copilot harness is powered by the [Copilot SDK](https://www.npmjs.com/package/@github/copilot-sdk), which keeps its behavior aligned with the Copilot CLI, the standalone GitHub Copilot app, and other Copilot products.
+A VS Code component (v1.136+) that lets multiple VS Code windows connect to the same agent session. It runs agent harnesses (such as Copilot, Claude, or Codex) in a dedicated process built on the open **Agent Host Protocol (AHP)**. The agent host's Copilot harness is powered by the [Copilot SDK](https://www.npmjs.com/package/@github/copilot-sdk), which keeps its behavior aligned with the Copilot CLI, the standalone GitHub Copilot app, and other Copilot products. As of VS Code 1.138, the agent host can also run sessions inside a local folder's Dev Container, create pull requests directly from a session, and share Agent Host sessions via browser-addressable links.
 
 **Example**: Starting a session in one VS Code window, then reconnecting to the same live session from a second window without losing state.
 
