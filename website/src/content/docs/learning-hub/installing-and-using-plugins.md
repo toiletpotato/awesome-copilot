@@ -3,7 +3,7 @@ title: 'Installing and Using Plugins'
 description: 'Learn how to find, install, and manage plugins that extend GitHub Copilot CLI with reusable agents, skills, hooks, and integrations.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-20
 relatedArticles:
   - ./building-custom-agents.md
   - ./creating-effective-skills.md
@@ -116,6 +116,8 @@ Or from within an interactive Copilot session:
 ```
 /plugin marketplace browse awesome-copilot
 ```
+
+> **Scriptable JSON output (v1.0.85+)**: Add `--json` to `copilot plugin list`, `copilot plugin marketplace list`, and `copilot plugin marketplace browse` to get machine-readable output for scripts or automation, instead of parsing the human-readable table format.
 
 > **Tip**: You can also browse plugins on this site's [Plugins Directory](../../plugins/) to see descriptions, included agents, and skills before installing.
 
