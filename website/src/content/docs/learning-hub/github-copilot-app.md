@@ -3,7 +3,7 @@ title: 'Getting Started with the GitHub Copilot app'
 description: 'Learn about the GitHub Copilot app, a desktop experience built for agent-native development. Understand its key features and who it''s for.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-21
 estimatedReadingTime: '8 minutes'
 tags:
   - copilot-app
@@ -91,6 +91,16 @@ For a hands-on guide to building canvases with `/create-canvas`, see [Working wi
 - Create, edit, or remove your own **personal skills** directly in the app, without hand-authoring a `SKILL.md` file
 
 This makes Customize a good starting point if you want to extend the app's capabilities but don't need the full `copilot plugin` CLI workflow described in [Installing and Using Plugins](../installing-and-using-plugins/).
+
+**Featured Sentry canvas** *(v1.1.23+)*: A featured Sentry canvas is now available in Customize. Install and open it to triage live Sentry issues directly from a session, without switching to the Sentry dashboard.
+
+### Local Sandbox for Agent Commands
+
+**`/sandbox`** *(v1.1.23+)* adds a project setting and command that let you run the agent's shell commands in a local sandbox, restricting filesystem access to the current session's workspace. This gives you an extra layer of containment for agent-run commands in the desktop app, similar in spirit to the sandbox options already available in Copilot CLI (see [Copilot Configuration Basics](../copilot-configuration-basics/)).
+
+### Restarting a Chat with History Preserved
+
+**`/restart-session`** *(v1.1.23+)* restarts chat and side chat conversations while preserving their history — useful when a session gets stuck or you want a clean context without losing the record of what was discussed.
 
 ### Agent Merge
 
