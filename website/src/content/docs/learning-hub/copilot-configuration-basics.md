@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-22
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -945,6 +945,30 @@ copilot skill enable my-skill    # enable a specific skill
 ### Command-Line Parsing Rewrite
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
+
+### Auto Routing Tier Defaults
+
+*(v1.0.87+)* Organizations and individual users can now set startup defaults for the **Auto** routing tier — the mode where the CLI selects a model dynamically per request. A managed policy can enforce a strict Auto-tier default org-wide or leave it user-overridable, giving admins finer control over cost and model-quality tradeoffs without disabling `/model auto` entirely.
+
+### Custom Worktree Paths
+
+*(v1.0.87+)* The `worktreePathTemplate` setting controls exactly where `/worktree`, `/move`, `/new`, and the `--worktree` startup flag create new worktrees. Set a template such as `~/src/worktrees/{repo}/{branch}` using the placeholders `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}`:
+
+```json
+{
+  "worktreePathTemplate": "~/src/worktrees/{repo}/{branch}"
+}
+```
+
+Leaving it unset keeps the existing default layout (`<repo>.worktrees/`, with slashes in branch names flattened to dashes).
+
+### Namespaced and Ignored Skill Directories
+
+*(v1.0.88+)* Skill discovery now supports namespaced custom skills, so skills from different sources (a plugin, a personal directory, a repository) with matching names no longer collide. You can also mark specific skill directories to be ignored during discovery, which is useful for excluding scratch or in-progress skill folders from being loaded into a session.
+
+### Agent Factory Runs
+
+*(v1.0.85+)* Manage long-running, autonomous "Agent Factory" runs from the `/factories` dialog. Use it to pause and resume factory runs, checking on autonomous work without leaving it running unattended in the background.
 
 ## Common Questions
 
