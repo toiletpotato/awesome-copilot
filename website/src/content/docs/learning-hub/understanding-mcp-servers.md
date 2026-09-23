@@ -3,7 +3,7 @@ title: 'Understanding MCP Servers'
 description: 'Learn how Model Context Protocol servers extend GitHub Copilot with access to external tools, databases, and APIs.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-05
+lastUpdated: 2026-09-23
 estimatedReadingTime: '8 minutes'
 tags:
   - mcp
@@ -320,6 +320,10 @@ For example, a PostgreSQL server that can't connect because `DATABASE_URL` is no
 You can also open the `/mcp` manager while the agent is working to toggle servers on or off mid-turn. Add, edit, delete, and re-auth actions wait until the turn finishes, but enabling or disabling a server takes effect immediately.
 
 **Toggling servers on and off** (v1.0.66+): From the `/mcp` list view, you can **enable or disable individual MCP servers** without editing your config file. Select a server in the list and toggle it — disabled servers won't start in future sessions and their tools won't be available to agents. This is useful for temporarily disabling a server that's causing slowdowns or errors without removing it from your configuration entirely.
+
+**`copilot mcp list` now includes the built-in GitHub server** *(v1.0.87+)*: When you're signed in, `copilot mcp list` and `copilot mcp get` report the built-in `github-mcp-server` alongside your other configured servers, instead of surfacing it only in the interactive `/mcp` view. This makes it easier to script or audit your full set of active MCP servers from the terminal.
+
+**Per-server slow-connection thresholds** *(v1.0.87+)*: Configure a `slowConnectionThresholdMs` value per MCP server to control when the CLI warns you that a server is taking too long to connect — useful for servers that are expected to have a longer startup time and shouldn't trigger a warning at the default threshold.
 
 **Common causes and fixes**:
 

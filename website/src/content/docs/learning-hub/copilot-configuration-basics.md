@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-23
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -945,6 +945,22 @@ copilot skill enable my-skill    # enable a specific skill
 ### Command-Line Parsing Rewrite
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
+
+### Auto Routing Tier Defaults
+
+*(v1.0.87+)* Organizations can now set user and managed startup defaults for the **Auto** model routing tier, including a strict mode and a user-overridable policy. This lets an organization steer new sessions toward Auto-routed model selection by default while still allowing individual developers to opt out where policy permits.
+
+### Custom Worktree Locations
+
+*(v1.0.87+)* A `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create new worktrees. Set it to a path such as `~/src/worktrees/{repo}/{branch}`; the template supports `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}` placeholders. Leaving it unset keeps the existing default layout (`<repo>.worktrees/`, with slashes in branch names flattened to dashes).
+
+### Forking Mid-Turn
+
+*(v1.0.87+)* Run `/fork` during an active turn to branch off your work without waiting for the current turn to finish, making it easier to explore an alternate approach the moment you think of it instead of interrupting the agent first.
+
+### Consecutive Steering Prompts and Recall
+
+*(v1.0.87+)* Consecutive steering prompts sent in the same mode now combine into a single pending message. Press **Up** in an empty chat input to recall that pending message for editing (including pasted text and attachments) — a recall hint appears alongside it. **Ctrl+C** stops the running turn instead of removing queued prompts one at a time, **Ctrl+Q** keeps queued prompts separate, and **Ctrl+P** lets you browse history without withdrawing pending prompts. This is available for local sessions only.
 
 ## Common Questions
 

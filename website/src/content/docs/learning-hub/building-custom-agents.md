@@ -3,7 +3,7 @@ title: 'Building Custom Agents'
 description: 'Learn how to create specialized GitHub Copilot agents with custom personas, tool integrations, and domain expertise.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-05
+lastUpdated: 2026-09-23
 estimatedReadingTime: '10 minutes'
 tags:
   - agents
@@ -251,6 +251,24 @@ tools: ['codebase', 'terminal', 'postgres-mcp']
 ```
 
 The agent can then query your database, analyze query plans, and suggest optimizations—all within the conversation. For setup details, see [Understanding MCP Servers](../understanding-mcp-servers/).
+
+## Opting Into Repository Instructions
+
+*(v1.0.86+)* By default, a custom agent's behavior comes entirely from its own frontmatter and Markdown body — it does not automatically inherit your repository's `AGENTS.md`, `copilot-instructions.md`, or `CLAUDE.md` files. Set `include-custom-instructions: true` in the agent's frontmatter to have it also load those repository instruction files, layering your team's shared conventions on top of the agent's own persona:
+
+```yaml
+---
+name: 'API Design Reviewer'
+description: 'Reviews API designs for consistency, RESTful patterns, and team conventions'
+model: Claude Sonnet 4
+tools: ['codebase', 'github']
+include-custom-instructions: true
+---
+```
+
+This is useful when an agent should follow both its specialized persona and the general coding standards documented for the whole repository, rather than operating in isolation from them.
+
+> **Reasoning effort applies at selection time (v1.0.88+)**: A custom agent's `reasoningEffort` now takes effect as soon as the agent is selected, instead of only when its model is also active. An explicit `--reasoning-effort` flag still overrides the agent's setting, and if the selected model doesn't support the requested level, the CLI reports it and leaves the level unapplied rather than silently substituting a different one.
 
 ## Best Practices
 
