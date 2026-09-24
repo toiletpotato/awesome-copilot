@@ -3,7 +3,7 @@ title: 'Agents and Subagents'
 description: 'Learn how delegated subagents differ from primary agents, when to use them, and how to launch them in VS Code and Copilot CLI.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-24
 estimatedReadingTime: '9 minutes'
 tags:
   - agents
@@ -201,6 +201,14 @@ When an agent delegates work to multiple chats, VS Code's **Agents window** now 
 This pairs with **improved workspace resolution**: agents can resolve a workspace by project name (for example, "run this in the vscode workspace") in addition to absolute paths, which simplifies prompts that hand off work across multiple repositories.
 
 **Shareable session links** *(VS Code 1.138+)*: Agent Host sessions and chats now provide browser-addressable links, so you can reopen or share a specific Agents window session directly from another app, a GitHub issue, or terminal output — useful when handing off a delegated subagent's work to a teammate for review. You can also start a new session beside the current one in one step, keeping the current work visible while a second session starts.
+
+**Run Multiple Agents** *(VS Code 1.139+)*: Send the same prompt to multiple agents in isolated worktrees at once, then have a judge agent compare the resulting implementations and recommend the best one — a built-in way to try several approaches to a delegated task in parallel instead of running them one at a time and comparing manually. Each session in the comparison is presented with its own chat, so you can inspect any candidate's full history before picking a winner.
+
+**Choose how chats appear in a session** *(VS Code 1.139+, Preview)*: When a session contains multiple delegated chats, the session header menu lets you pick between **Multiple** (each chat on its own tab) and **Single** (only the active chat, tab bar hidden) presentation. Switching presentations preserves your open chats, active chat, and conversation state, so you can flip between views without losing track of concurrent subagent work.
+
+**Rename sessions and chats in place** *(VS Code 1.139+)*: Double-click a session or nested chat's title in the sessions list (or use the rename context menu action) to rename it directly, without leaving the list. This makes it easier to keep a long-running delegation tree of chats readable as it grows.
+
+**Run agent sessions in Dev Containers on remote hosts** *(VS Code 1.140+)*: `setting(chat.agentHost.devContainer.enabled)` extends Dev Container sessions from local folders to remote SSH, Tunnel, and WSL hosts. This lets an agent — including a delegated subagent — build and test a remote project with the right toolchain, without duplicating setup on your laptop or the remote host itself. Enable the setting and select **Use Dev Container** from the folder menu in the Agents Window; the remote folder needs a supported Dev Container configuration and Docker on the remote host.
 
 ## Common questions
 

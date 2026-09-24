@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-24
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -945,6 +945,32 @@ copilot skill enable my-skill    # enable a specific skill
 ### Command-Line Parsing Rewrite
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
+
+### Worktree Path Templates
+
+*(v1.0.87+)* A `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and the `--worktree` startup flag create new worktrees. Set it to a path template such as `~/src/worktrees/{repo}/{branch}` using the `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}` placeholders:
+
+```
+/settings worktreePathTemplate "~/src/worktrees/{repo}/{branch}"
+```
+
+Leaving the setting unset keeps the existing layout, `<repo>.worktrees/`, with slashes in the branch name flattened to dashes.
+
+### Combined Steering Prompts and Prompt Recall
+
+*(v1.0.87+)* Consecutive steering prompts typed into the same mode now combine into a single pending message instead of queuing separately. Press Up in an empty chat input to recall that pending message for editing — including pasted text and attachments — with a recall hint shown alongside it. Ctrl+C stops the running turn instead of removing pending prompts one at a time, Ctrl+Q keeps queued prompts separate, and Ctrl+P still browses prompt history without withdrawing anything. This is available for local sessions only; commands and prompts already being processed can't be recalled.
+
+### `/fork` During Active Turns
+
+*(v1.0.87+)* Run `/fork` while a turn is still in progress to branch your work without waiting for the current response to finish — useful when you want to try an alternate approach without losing the in-flight turn on your original session.
+
+### Auto Routing Tier Defaults
+
+*(v1.0.87+)* Organizations can now set startup defaults for the **Auto** model routing tier (see **Auto mode and server-side model routing** under [Model Picker](#model-picker) above), including a strict, non-overridable policy or a user-overridable default. This gives admins a way to steer cost/quality tradeoffs for Auto mode across a team while still allowing individual opt-outs where the policy permits.
+
+### Custom Agents Can Opt Into Repository Instructions
+
+*(v1.0.86+)* Custom agents can now set `include-custom-instructions: true` in their frontmatter to automatically pull in repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) alongside their own persona instructions. See the `include-custom-instructions` frontmatter field in [Building Custom Agents](../building-custom-agents/) for the full syntax and example.
 
 ## Common Questions
 

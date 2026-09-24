@@ -3,7 +3,7 @@ title: 'Getting Started with the GitHub Copilot app'
 description: 'Learn about the GitHub Copilot app, a desktop experience built for agent-native development. Understand its key features and who it''s for.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-24
 estimatedReadingTime: '8 minutes'
 tags:
   - copilot-app
@@ -72,6 +72,14 @@ This makes it easy to dispatch multiple agents and trust they won't interfere wi
 
 Closing the app's main window keeps it running in the background instead of quitting, with tray (Windows/Linux) or Dock (macOS) support to bring it back. This means scheduled automations and in-progress sessions keep running even when the window isn't open.
 
+### Local Sandbox for Shell Commands
+
+*(v1.1.23+)* A new project setting and **`/sandbox`** command let you run the agent's shell commands in a local sandbox restricted to the session's workspace, limiting filesystem access to the files inside that session. This mirrors the sandboxing already available in Copilot CLI (see **Sandbox Network Allow/Deny Rules** in [Copilot Configuration Basics](../copilot-configuration-basics/)) and gives you a way to run less-trusted or exploratory prompts with a tighter blast radius, without disabling shell access entirely.
+
+### Restarting a Chat Conversation
+
+*(v1.1.23+)* Use **`/restart-session`** to restart a chat or side chat conversation while preserving its history — useful when a conversation gets stuck or you want a clean context without losing the record of what was discussed.
+
 ### Canvases
 
 **Canvases** are interactive work surfaces where you and agents collaborate. Instead of long chat threads, a canvas shows the actual work:
@@ -86,7 +94,7 @@ For a hands-on guide to building canvases with `/create-canvas`, see [Working wi
 
 **Customize** *(v1.1.13+)* is a single place in the Copilot app to browse and manage everything that extends your agents: plugins, skills, MCP servers, and canvases. Instead of hunting through separate settings pages, open **Customize** to:
 
-- Browse **Featured** integrations (for example Azure DevOps or Figma) and install them with one click
+- Browse **Featured** integrations (for example Azure DevOps, Figma, or the Sentry canvas for triaging live Sentry issues *(v1.1.23+)*) and install them with one click
 - See what's already **Installed**, with consistent icons and source labels across plugin, skill, MCP server, canvas, and connector types
 - Create, edit, or remove your own **personal skills** directly in the app, without hand-authoring a `SKILL.md` file
 
