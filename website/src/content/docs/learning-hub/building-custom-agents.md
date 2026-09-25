@@ -3,7 +3,7 @@ title: 'Building Custom Agents'
 description: 'Learn how to create specialized GitHub Copilot agents with custom personas, tool integrations, and domain expertise.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-05
+lastUpdated: 2026-09-25
 estimatedReadingTime: '10 minutes'
 tags:
   - agents
@@ -96,6 +96,8 @@ tools: ['codebase', 'terminal', 'github']
 ---
 ```
 
+> **Reasoning effort applies on selection (v1.0.88+)**: A custom agent's `reasoning-effort` (or `reasoningEffort`) now takes effect as soon as you select the agent, instead of only when its `model` field also changes. An explicit `--reasoning-effort` flag still overrides the agent's setting, and if the currently selected model doesn't support the requested level, the CLI reports this and leaves the level unapplied rather than silently ignoring it.
+
 **tools** (recommended): An array of built-in tools and MCP servers the agent can access. Common tools include:
 
 | Tool | Purpose |
@@ -107,6 +109,20 @@ tools: ['codebase', 'terminal', 'github']
 | `edit` | Modify files in the workspace |
 
 For MCP server tools, reference them by server name (e.g., `postgres`, `docker`). See [Understanding MCP Servers](../understanding-mcp-servers/) for details.
+
+**include-custom-instructions** *(v1.0.86+)*: By default, custom agents run with only their own frontmatter and instructions — they don't automatically inherit your repository's instruction files. Set `include-custom-instructions: true` to opt a specific agent into repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) alongside its own instructions:
+
+```yaml
+---
+name: 'Security Reviewer'
+description: 'Thorough security audit for OWASP vulnerabilities'
+model: Claude Sonnet 4
+include-custom-instructions: true
+tools: ['codebase', 'terminal', 'github']
+---
+```
+
+This is useful when an agent's task benefits from your team's broader conventions (coding style, architecture decisions) in addition to its specialized persona, without having to duplicate that guidance in the agent file itself.
 
 ### Agent Instructions
 
