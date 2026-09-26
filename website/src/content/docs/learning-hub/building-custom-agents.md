@@ -3,7 +3,7 @@ title: 'Building Custom Agents'
 description: 'Learn how to create specialized GitHub Copilot agents with custom personas, tool integrations, and domain expertise.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-05
+lastUpdated: 2026-09-26
 estimatedReadingTime: '10 minutes'
 tags:
   - agents
@@ -107,6 +107,20 @@ tools: ['codebase', 'terminal', 'github']
 | `edit` | Modify files in the workspace |
 
 For MCP server tools, reference them by server name (e.g., `postgres`, `docker`). See [Understanding MCP Servers](../understanding-mcp-servers/) for details.
+
+**includeCustomInstructions** *(v1.0.86+)*: By default, a custom agent's own persona replaces repository instruction files rather than combining with them. Set `include-custom-instructions: true` in the agent's frontmatter to opt the agent into also reading repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) alongside its own definition:
+
+```yaml
+---
+name: 'API Design Reviewer'
+description: 'Reviews API designs for consistency with team conventions'
+model: Claude Sonnet 4
+tools: ['codebase', 'github']
+include-custom-instructions: true
+---
+```
+
+Use this when an agent's review criteria should still respect your team's general coding standards, rather than operating purely on its own persona.
 
 ### Agent Instructions
 
@@ -265,13 +279,15 @@ The agent can then query your database, analyze query plans, and suggest optimiz
 
 | Scenario | Recommended Model |
 |----------|-------------------|
-| Most demanding reasoning, security review | Claude Sonnet 5 *(v1.0.67+)* |
+| Most demanding reasoning, security review | Claude Opus 5.5 *(v1.0.89+)*, Claude Sonnet 5 *(v1.0.67+)* |
 | Complex reasoning, analysis | Claude Sonnet 4 |
-| Code generation, tool-driven agentic work | GPT-5.6 *(v1.0.70+)* |
+| Code generation, tool-driven agentic work | GPT-5.6 *(v1.0.70+)*, GPT-6 Sol / GPT-6 Luna *(v1.0.89+)* |
 | Code generation, refactoring | GPT-4.1 |
 | Code-specialized tasks, large context | kimi-k2.7-code *(v1.0.68+)*, kimi-k3 *(v1.0.79+)* |
 | Quick analysis, simple tasks | Claude Haiku or GPT-4.1-mini |
 | Large codebase understanding | Models with larger context windows |
+
+> These are point-in-time recommendations — the model roster changes frequently. Use `/model` to see currently available models and their capabilities, or consider **Auto** mode (see [Copilot Configuration Basics](../copilot-configuration-basics/)) to let the CLI route each request to an appropriate model automatically.
 
 ### Organizing Agents in Your Repository
 

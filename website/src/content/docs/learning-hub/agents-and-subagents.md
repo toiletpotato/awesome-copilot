@@ -3,7 +3,7 @@ title: 'Agents and Subagents'
 description: 'Learn how delegated subagents differ from primary agents, when to use them, and how to launch them in VS Code and Copilot CLI.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-09-26
 estimatedReadingTime: '9 minutes'
 tags:
   - agents
@@ -201,6 +201,8 @@ When an agent delegates work to multiple chats, VS Code's **Agents window** now 
 This pairs with **improved workspace resolution**: agents can resolve a workspace by project name (for example, "run this in the vscode workspace") in addition to absolute paths, which simplifies prompts that hand off work across multiple repositories.
 
 **Shareable session links** *(VS Code 1.138+)*: Agent Host sessions and chats now provide browser-addressable links, so you can reopen or share a specific Agents window session directly from another app, a GitHub issue, or terminal output — useful when handing off a delegated subagent's work to a teammate for review. You can also start a new session beside the current one in one step, keeping the current work visible while a second session starts.
+
+**Faster session lists and Dev Container sessions** *(VS Code 1.139+)*: The Agents window loads and refreshes large session lists significantly faster — around 12x faster for the first listing and 4x faster on refresh in testing with roughly 645 sessions — because the agent host now keeps lightweight session and chat metadata in a central catalog instead of opening every conversation database on each refresh. This release also extends **Dev Container sessions** (previously local-folder only) to projects on SSH, Tunnel, and WSL hosts, so a delegated agent can build and test inside the project's own Dev Container even when the project lives on a remote machine.
 
 ## Common questions
 
