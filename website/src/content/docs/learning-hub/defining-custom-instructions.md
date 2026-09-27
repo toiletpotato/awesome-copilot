@@ -3,7 +3,7 @@ title: 'Defining Custom Instructions'
 description: 'Learn how to create persistent, context-aware instructions that guide GitHub Copilot automatically across your codebase.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-07-01
+lastUpdated: 2026-09-27
 estimatedReadingTime: '8 minutes'
 tags:
   - instructions
@@ -162,6 +162,8 @@ applyTo: '**/*.ts, **/*.tsx'
 ```
 
 When the instruction file is loaded, the referenced files are read and their content is substituted inline before being sent to the model.
+
+**Claude rule files as custom instructions** *(v1.0.89+)*: Copilot CLI now also reads rule files from `.claude/rules` and applies them as custom instructions, alongside `AGENTS.md`, `copilot-instructions.md`, and `CLAUDE.md`. If your team already maintains Claude Code rule files, Copilot CLI picks them up automatically — no need to duplicate the same guidance in a separate `.instructions.md` file.
 
 **Why this matters**:
 - **DRY principle**: Maintain a shared `security-rules.md` and import it into every instruction rather than copying it
