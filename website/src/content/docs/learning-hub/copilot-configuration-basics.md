@@ -938,6 +938,10 @@ copilot skill enable my-skill    # enable a specific skill
 
 *(v1.0.84+)* `/sandbox` now supports per-host network allow/deny rules that layer on top of your configured upstream proxy, instead of replacing it. This lets you permit or block specific hosts for sandboxed commands without reconfiguring your whole proxy setup — useful when a sandboxed build or test needs to reach one extra domain (like a package registry mirror) while keeping the rest of your network policy intact.
 
+### Sandbox Proxy CA Commands
+
+*(v1.0.91+)* New `copilot sandbox ca` commands let you check, create, trust, rotate, and remove the proxy certificate authority (CA) trust used by sandboxed commands, including unattended setup on Windows. The former `/sandbox ca install` is now split into `create` and `trust`, so update any scripts that call it.
+
 ### Memory and Session Import
 
 *(v1.0.84+)* New session and memory import commands accept the semantic JSONL interchange format, making it possible to bring saved session history or memory entries into Copilot CLI from an external export rather than starting from scratch.
