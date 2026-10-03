@@ -96,6 +96,8 @@ tools: ['codebase', 'terminal', 'github']
 ---
 ```
 
+*(v1.0.88+)* The agent's reasoning effort is applied when the agent is selected, not just its model. An explicit `--reasoning-effort` flag still wins, and a level the selected model doesn't offer is reported and left unapplied.
+
 **tools** (recommended): An array of built-in tools and MCP servers the agent can access. Common tools include:
 
 | Tool | Purpose |

@@ -924,6 +924,8 @@ copilot mcp disable my-server    # disable a specific MCP server
 copilot skill enable my-skill    # enable a specific skill
 ```
 
+*(v1.0.89+)* Plugins installed directly can also be enabled and disabled; a plugin recorded as disabled no longer loads, and `copilot plugin enable` re-enables it.
+
 > **Breaking change (v1.0.84+)**: The cross-kind `--kind`, `--scope`, `--mcp`, and `--skill` flags have been removed from `copilot plugins`. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins — not MCP servers, skills, instructions, or LSP servers. Scripts that installed skills with `copilot plugins install --skill [--scope project]` should switch to `copilot skill add [--project]`, and scripts reading `.plugins` from `copilot plugins list --json` should expect a flat array instead of the previous `{ plugins, errors }` object.
 
 ### The `/config` Sidebar
