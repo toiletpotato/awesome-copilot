@@ -946,6 +946,26 @@ copilot skill enable my-skill    # enable a specific skill
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
 
+### The `copilot config` Subcommands
+
+*(v1.0.92+)* Manage settings from the shell without hand-editing files. `copilot config` has subcommands to list, read, set, and remove settings, which is handy in setup scripts and dotfiles.
+
+> **User settings location (v1.0.93+)**: User settings are read only from `~/.copilot/settings.json`. User-setting keys left in `~/.copilot/config.json` are now ignored, so move them across if a setting seems to have stopped applying.
+
+### Worktree Location and Instruction Sources
+
+- *(v1.0.87+)* The `worktreePathTemplate` setting controls where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees, for example `~/src/worktrees/{repo}/{branch}`. Supported placeholders are `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}`.
+- *(v1.0.86+)* A custom agent can opt into repository instruction files (`AGENTS.md`, `copilot-instructions.md`, `CLAUDE.md`) by setting `include-custom-instructions: true` in its frontmatter.
+- *(v1.0.89+)* Claude Code rule files in `.claude/rules` are loaded as custom instructions.
+
+### Sandbox Availability and Managed Policy
+
+*(v1.0.93+)* Command sandboxing is available to all users through `/sandbox` and `--sandbox`. Enterprises can enforce network boundaries with `permissions.limitTo` in managed settings, and managed policy can disable Assisted Permissions so sessions stay in Manual Approval mode (v1.0.94+). Sandboxed shells withhold the ambient `GITHUB_TOKEN` unless you configure it explicitly (v1.0.92+), and `copilot sandbox ca` commands manage proxy CA trust.
+
+### Recent Model Additions
+
+The model picker now also includes **Claude Opus 5.5** and **GPT-6 Sol / GPT-6 Luna** (v1.0.89+), **GPT-6.1 Sol** (v1.0.90+), and **Claude Haiku 5.5** (v1.0.94+). Auto mode can suggest a routing tier that you can switch with a shortcut or a click (v1.0.89+), and `--context long_context` is honoured at startup (v1.0.93+).
+
 ## Common Questions
 
 **Q: How do I disable Copilot for specific files?**
