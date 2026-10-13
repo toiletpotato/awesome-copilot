@@ -3,7 +3,7 @@ title: 'Automating with Hooks'
 description: 'Learn how to use hooks to automate lifecycle events like formatting, linting, and governance checks during Copilot agent sessions.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-08-28
+lastUpdated: 2026-10-13
 estimatedReadingTime: '8 minutes'
 tags:
   - hooks
@@ -143,6 +143,12 @@ EOF
 ### Extension Hooks Merging
 
 When multiple IDE extensions (or a mix of extensions and a `hooks.json` file) each define hooks, all hook definitions are **merged** rather than the last one overwriting the others. This means you can layer hooks from different sources—a project's `.github/hooks/` file, an extension you have installed, and a personal settings file—and all of them will fire for the relevant events.
+
+### Agent-Scoped Hooks (v1.0.97+)
+
+Custom agents can declare their own hooks, so automation applies only while that agent is running instead of for every session. Use this for agent-specific guardrails, such as a security reviewer that logs every shell command, without affecting your other agents. See [Building Custom Agents](../building-custom-agents/) and the [Copilot CLI changelog](https://github.com/github/copilot-cli/blob/main/changelog.md) for current syntax.
+
+> **Autopilot note**: In autopilot mode, a `preToolUse` hook that returns an `ask` decision is now denied rather than stopping on a permission dialog nobody is watching. Return an explicit `allow` or `deny` for hooks that must work unattended.
 
 ### Cross-Platform Event Name Compatibility
 
