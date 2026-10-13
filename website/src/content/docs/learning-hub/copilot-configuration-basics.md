@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-10-13
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -945,6 +945,65 @@ copilot skill enable my-skill    # enable a specific skill
 ### Command-Line Parsing Rewrite
 
 *(v1.0.84+)* Command-line parsing moved from Commander to a Rust-based grammar that mirrors what the CLI actually parses, which also generates shell completions directly from that grammar — so `copilot <TAB>` now offers root flags alongside subcommands, and each subcommand only shows its own options. As a result of this change, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
+
+### Managing Settings with `copilot config`
+
+*(v1.0.92+)* The `copilot config` subcommands list, read, set, and remove settings from the command line, so you can script configuration instead of hand-editing JSON:
+
+```bash
+copilot config --help
+```
+
+> **Breaking change (v1.0.93)**: User settings are read only from `~/.copilot/settings.json`. User-setting keys left in `~/.copilot/config.json` are now ignored — move them across if you still have any.
+
+Related settings and flags from recent releases:
+
+- **`worktreePathTemplate`** *(v1.0.87+)*: Controls where `/worktree`, `/move`, `/new`, and `--worktree` create worktrees, for example `~/src/worktrees/{repo}/{branch}`. Supported placeholders are `{repoPath}`, `{repo}`, `{branch}`, and `{branchSlug}`.
+- **`--mcp-github-auth`** *(v1.0.90+)*: Scopes GitHub account auth to MCP server origins you approve.
+- **`slowConnectionThresholdMs`** *(v1.0.87+)*: Sets a per-server MCP slow-connection warning threshold.
+- **`--context`** *(v1.0.95+)*: Now applies to new and resumed ACP sessions rather than silently using the default or previously saved context tier.
+
+### Sandbox Updates
+
+*(v1.0.93+)* Command sandboxing is available to all users through `/sandbox` and `--sandbox`. Recent releases also added:
+
+- `copilot sandbox ca` commands (v1.0.91+) to check, create, trust, rotate, and remove proxy CA trust. `/sandbox ca install` is now split into `create` and `trust`.
+- `/add-dir` (v1.0.96+) grants sandbox access to added directories for the current session.
+- Sandboxed shells withhold the ambient `GITHUB_TOKEN` unless you explicitly configure it (v1.0.92+).
+- Sandbox credential `injectHosts` keys (v1.0.95+) in `copilot config`, and masking hosts and suggested environment secrets in the interactive settings (v1.0.96+).
+- Sandbox proxies work on Windows, and a proxy with a username and password works on every platform (v1.0.87+).
+
+### Models, Auto Routing, and Context
+
+- **New models**: The model picker has added GPT-6 Sol/Luna/Astra, GPT-6.1 Sol, Claude Opus 5.5, and Claude Haiku 5.5, and prioritizes GPT-6.1 Sol, GPT-6 Astra/Luna, and Claude 5.5 models in its recommended list (v1.0.89–v1.0.94). Model IDs in `/model` and `/config model` are case-insensitive and saved in canonical form (v1.0.96+).
+- **Auto routing tier** *(v1.0.87–v1.0.89)*: Auto suggests a routing tier that you can switch with a shortcut or a click. Users and organizations can set startup defaults for the tier, strictly or user-overridable.
+- **`--context long_context`** *(v1.0.93+)*: Honored at startup, and `/context` shows the accurate allowance.
+
+### Permissions and Enterprise Policy
+
+- **Assisted Permissions**: The timeline shows whether you, Assisted Permissions, policy, or an unattended fallback made each permission decision (v1.0.96+). Managed policy can disable Assisted Permissions and keep sessions in Manual Approval mode (v1.0.94+).
+- **`permissions.limitTo`** *(v1.0.93+)*: Enterprises can enforce managed domain boundaries for network requests.
+- **Session-scoped read-only directory approvals** *(v1.0.90+)*: Path access prompts can grant read-only access for the current session.
+- **Managed settings**: Enterprise managed settings now apply to ACP, AHP host, and `--server` sessions (v1.0.88+).
+
+### Instructions, Skills, and Plugins
+
+- **Claude Code rules** *(v1.0.89+)*: Rule files in `.claude/rules` are loaded as custom instructions.
+- **Skills** *(v1.0.88+)*: Namespaced custom skills and ignored skill directories are supported during discovery. Plugin skill commands stay available after reloading enabled plugins (v1.0.93+).
+- **Plugins** *(v1.0.89+)*: Directly installed plugins can be enabled and disabled, for example with `copilot plugin enable`.
+- **Custom agents** *(v1.0.88+)*: An agent's `reasoning-effort` applies when the agent is selected, not just its model. An explicit `--reasoning-effort` still wins.
+
+### Session Workflow Shortcuts
+
+- **Environment picker** *(v1.0.92+)*: Press **Ctrl+E** before the first message to switch between local and cloud runs.
+- **`/fork` during active turns** *(v1.0.88+)*: Branch work without waiting for the current turn to finish.
+- **Take back a prompt** *(v1.0.89+)*: In local sessions, press **Esc Esc** in an empty chat input to remove a prompt the model has not started answering. Press **Up** in an empty input to recall a pending message.
+- **MCP changes between turns** *(v1.0.93+)*: MCP server configuration changes apply without restarting the session.
+
+#### Further Reading
+
+- [GitHub Copilot CLI changelog](https://github.com/github/copilot-cli/blob/main/changelog.md)
+- [GitHub Copilot changelog](https://github.blog/changelog/label/copilot/)
 
 ## Common Questions
 
